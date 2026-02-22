@@ -55,7 +55,7 @@ const NavMenuContent = ({ onClick }) => {
                             `url('${require('/assets/images/anonymous.png')}')`
                             :
                             profile.auth.user.avatar ?
-                                `url('${profile.auth.user.avatar}')`
+                                `url('${encodeURI(profile.auth.user.avatar).replace(/'/g, '%27')}')`
                                 :
                                 `url('${require('/assets/images/default_avatar.png')}')`
                     }}
