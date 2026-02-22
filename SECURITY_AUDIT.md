@@ -484,5 +484,5 @@ Message IDs use `Math.random()` with a very small range (1-9999), making collisi
 1. **Immediate** (Vulnerability 1): ✅ **FIXED** — Changed `hostname.endsWith(host)` to `hostname === host || hostname.endsWith('.${host}')` for proper domain boundary matching
 2. **Immediate** (Vulnerability 2): ✅ **FIXED** — Replaced `hat` library (`Math.random()`) with `crypto.getRandomValues()` in both `useFacebookLogin.ts` and `useAppleLogin.ts`
 3. **High** (Vulnerability 3): ✅ **FIXED** — Added URL validation with protocol check (`http:` / `https:` only) for `streamingServerUrl` parameter in `SearchParamsHandler.js`
-4. **Medium** (Vulnerability 5): ✅ **FIXED** — Added `startsWith('#')` check to validate deep links are internal hash routes before assigning to `window.location` in `DeepLinkHandler.js`
+4. **Medium** (Vulnerability 5): ✅ **FIXED** — Added `startsWith('#/')` check to validate deep links are internal hash routes before assigning to `window.location` in `DeepLinkHandler.js`
 5. **Medium** (Vulnerability 4): ✅ **FIXED** — Applied `encodeURI()` with single quote escaping to sanitize avatar URLs and background URLs before CSS interpolation in `User.tsx`, `NavMenuContent.js`, and `ModalDialog.js`
