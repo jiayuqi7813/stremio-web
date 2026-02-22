@@ -1,11 +1,16 @@
 // Copyright (C) 2017-2023 Smart code 203358507
 
 import { useCallback, useEffect, useRef } from 'react';
-import hat from 'hat';
 import { usePlatform } from 'stremio/common';
 
 const STREMIO_URL = 'https://www.strem.io';
 const MAX_TRIES = 25;
+
+const generateSecureState = (bits: number = 128): string => {
+    const bytes = new Uint8Array(bits / 8);
+    crypto.getRandomValues(bytes);
+    return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
+};
 
 const getCredentials = async (state: string) => {
     try {
@@ -29,7 +34,7 @@ const useFacebookLogin = () => {
 
     const start = useCallback(() => new Promise((resolve, reject) => {
         started.current = true;
-        const state = hat(128);
+        const state = generateSecureState(128);
         let tries = 0;
 
         platform.openExternal(`${STREMIO_URL}/login-fb/${state}`);

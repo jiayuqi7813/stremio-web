@@ -61,7 +61,7 @@ const ModalDialog = ({ className, title, buttons, children, dataset, onCloseRequ
     return (
         <Modal ref={modalContainerRef} {...props} className={classnames(className, styles['modal-container'])} onMouseDown={onModalContainerMouseDown}>
             <div className={styles['modal-dialog-container']} onMouseDown={onModalDialogContainerMouseDown}>
-                <div className={styles['modal-dialog-background']} style={{backgroundImage: `url('${background}')`}} />
+                <div className={styles['modal-dialog-background']} style={{backgroundImage: typeof background === 'string' ? `url('${encodeURI(background).replace(/'/g, '%27')}')` : undefined}} />
                 <Button className={styles['close-button-container']} title={t('BUTTON_CLOSE')} onClick={closeButtonOnClick}>
                     <Icon className={styles['icon']} name={'close'} />
                 </Button>

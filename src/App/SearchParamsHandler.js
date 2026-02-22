@@ -26,6 +26,16 @@ const SearchParamsHandler = () => {
         const { streamingServerUrl } = searchParams;
 
         if (streamingServerUrl) {
+            try {
+                const parsed = new URL(streamingServerUrl);
+                if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+                    throw new Error('Invalid protocol');
+                }
+            } catch (e) {
+                console.error('Invalid streaming server URL:', e);
+                return;
+            }
+
             core.transport.dispatch({
                 action: 'Ctx',
                 args: {

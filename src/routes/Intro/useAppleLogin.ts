@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef } from 'react';
 import { usePlatform } from 'stremio/common';
-import hat from 'hat';
 
 type AppleLoginResponse = {
     token: string;
@@ -13,6 +12,12 @@ type AppleLoginResponse = {
 
 const STREMIO_URL = 'https://www.strem.io';
 const MAX_TRIES = 25;
+
+const generateSecureState = (bits: number = 128): string => {
+    const bytes = new Uint8Array(bits / 8);
+    crypto.getRandomValues(bytes);
+    return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
+};
 
 const getCredentials = async (state: string): Promise<AppleLoginResponse> => {
     try {
@@ -39,7 +44,7 @@ const useAppleLogin = (): [() => Promise<AppleLoginResponse>, () => void] => {
 
     const start = useCallback(() => new Promise<AppleLoginResponse>((resolve, reject) => {
         started.current = true;
-        const state = hat(128);
+        const state = generateSecureState(128);
         let tries = 0;
 
         platform.openExternal(`${STREMIO_URL}/login-apple/${state}`);

@@ -10,7 +10,7 @@ const DeepLinkHandler = () => {
             const [, { type, content }] = streamingServer.torrent;
             if (type === 'Ready') {
                 const [, deepLinks] = content;
-                if (typeof deepLinks.metaDetailsVideos === 'string') {
+                if (typeof deepLinks.metaDetailsVideos === 'string' && deepLinks.metaDetailsVideos.startsWith('#')) {
                     window.location = deepLinks.metaDetailsVideos;
                 }
             }
